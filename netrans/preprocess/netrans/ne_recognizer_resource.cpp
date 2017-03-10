@@ -57,8 +57,11 @@ bool type_recognizer::recognize_sent(const wchar_t* _sent, const int _sent_len, 
 			if (type_pattern_[i]->search(_sent, _sent_len, start_pos))
 			{
 				//cout<< "regex[i]=" << i << endl;
+				cout<< "type pattern= " <<i<<endl;
 				int match_start = type_pattern_[i]->get_match_start();
+				cout<<"match_start "<<match_start<<endl;
 				int match_len = type_pattern_[i]->get_match_len();
+				cout<<"match_len "<<match_len<<endl;
 				if (min_start > match_start)
 				{
 					min_start = match_start;
@@ -73,12 +76,14 @@ bool type_recognizer::recognize_sent(const wchar_t* _sent, const int _sent_len, 
 						best_match_idx = i;
 					}
 				}
+
 			}
 		}
 
-		cout<<"best_match_idx="<<best_match_idx<<endl;
+
 		if(best_match_idx != -1){
-			cout<<"best_match_pattern="<< type_pattern_[best_match_idx]->get_match_start() <<endl;
+			cout<<"best_match_idx= "<<best_match_idx<<endl;
+			cout<<"best_match_pattern_start_point= "<< type_pattern_[best_match_idx]->get_match_start() <<endl;
 			cout<<"best_match_length="<<type_pattern_[best_match_idx]->get_match_len() <<endl;
 		}
 		//wirte on match
@@ -88,7 +93,6 @@ bool type_recognizer::recognize_sent(const wchar_t* _sent, const int _sent_len, 
 			if (NULL != ne && _unit_left_in_output > 0)
 			{
 				_ne_output[output_offset] = ne;
-				//cout<< ne << endl;
 				output_offset++;
 				_unit_left_in_output--;
 
@@ -200,11 +204,13 @@ bool ne_recognizer_resource::reload_resource()
 			if (format_json.HasMember(FT_NE_DATA_YEAR_LABEL))
 			{
 				year = format_json[FT_NE_DATA_YEAR_LABEL].GetInt();
+
 			}
 			int month = -1;
 			if (format_json.HasMember(FT_NE_DATA_MONTH_LABEL))
 			{
 				month = format_json[FT_NE_DATA_MONTH_LABEL].GetInt();
+
 			}
 			int day = -1;
 			if (format_json.HasMember(FT_NE_DATA_DAY_LABEL))

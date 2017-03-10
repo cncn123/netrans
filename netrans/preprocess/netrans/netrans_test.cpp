@@ -73,13 +73,13 @@ void print_date(ne_non_trans* _val)
 	std::cout <<"day:"<<pdate->day_<<endl;
 }
 
-/*void print_time(ne_non_trans* _val)
+void print_time(ne_non_trans* _val)
 {
 	ne_time* ptime = reinterpret_cast<ne_time*>(_val);
 	std::cout <<"hour:"<<ptime->hour_<<endl;
 	std::cout <<"minute:"<<ptime->minute_<<endl;
 	std::cout <<"second:"<<ptime->second_<<endl;
-}*/
+}
 
 
 int main(int argc, char* argv[])
@@ -91,24 +91,44 @@ int main(int argc, char* argv[])
 	ne_res->reload_resource();
 	ne_recognizer* ne_rec = new ne_recognizer(ne_res);
 
-	const wchar_t* sent = L"明天是2017年11月28日星期五。";
+	//const wchar_t* sent = L"12月18日";
+	//const wchar_t* sent = L"十二月十八日";
+	//const wchar_t* sent = L"十二月二十八日";
+	//const wchar_t* sent = L"2012年10日";
+	const wchar_t* sent = L"2012年12月10日daw,,.hel年底d年12月18日";
+	//const wchar_t* sent = L"年12月10日daw,,.hel年底d年12月18日";
+	//const wchar_t* sent = L"1234年1234年12月10日daw,,.hel年底d年12月18日";
+	//const wchar_t* sent = L"上午9点";
+	//const wchar_t* sent = L"上午9点上午23点时傍晚13时";
+	//const wchar_t* sent = L"2012年12月10日上午9点daw,,.hel年底d年12月18日上午23点时傍晚13时";
+	//const wchar_t* sent = L"上午二十点上午9点傍晚13时12124125十二月二十八日";
+	//const wchar_t* sent = L"上午9点半";
+	//const wchar_t* sent = L"1234年1234年12月10日上午9点半";
+	//const wchar_t* sent = L"9点过20";
+	//const wchar_t* sent = L"9:20";
+	//const wchar_t* sent = L"9:20:30";
+	//const wchar_t* sent = L"9分40秒";
+	//const wchar_t* sent = L"9点一刻";
+	//const wchar_t* sent = L"2012年12月10日上午二十点过三刻";
 	const int sent_len = wcslen(sent);
 	ne_non_trans** output_buf = (ne_non_trans **) calloc(128, sizeof(ne_non_trans*));
 	int buf_unit_left = 128;
 	ne_rec->recognize(sent, sent_len, output_buf, buf_unit_left);
 	int output_len = 128 - buf_unit_left;
-	std::cout << "output len = " << output_len;
+	std::cout << "output len = " << output_len<<endl;
 	for (int i = 0; i < output_len; ++i)
 	{
-		cout<<output_buf[i]->type_<<endl;
+		cout<<"output_type="<<(int)output_buf[i]->type_<<endl;
 		if (output_buf[i]->type_ == ET_NE_DATE)
 		{
-			cout << (int)(output_buf[i]->type_) <<endl;
+			//cout << (int)(output_buf[i]->type_) <<endl;
+			cout<<"print_date"<<endl;
 			print_date(output_buf[i]);
 		}
 		else if (output_buf[i]->type_ == ET_NE_TIME)
 		{
-			//print_time(output_buf[i]);
+			cout<<"print_time"<<endl;
+			print_time(output_buf[i]);
 		}
 	}
 	return 0;

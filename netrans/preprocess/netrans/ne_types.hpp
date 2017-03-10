@@ -122,6 +122,9 @@ public:
 
 class ne_time : public ne_non_trans {
 public:
+	 	uint16_t hour_;
+		uint16_t minute_;
+		float second_;
 	    ne_time():ne_non_trans(ET_NE_TIME),hour_(0), minute_(0), second_(0.0f){};
 	    ne_time(const uint16_t& _start, const uint16_t& _len,const int _hour, const int _min, const float _sec):
 	    	ne_non_trans(_start, _len, ET_NE_TIME)//感觉有问题
@@ -140,9 +143,7 @@ public:
 	    	}
 	    };
 private:
-	    uint16_t hour_;
-	    uint16_t minute_;
-	    float second_;
+
 };
 
 class ne_currency: public ne_non_trans {

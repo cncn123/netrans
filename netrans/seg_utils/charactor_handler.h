@@ -22,7 +22,7 @@ class charactor_handler {
 public:
 	bool is_all_chn_digit(const wchar_t* _beg, const int len);
 	bool is_all_digit(const wchar_t* _beg, const int len);
-	int get_chn_value(const wchar_t* _beg, const int len);
+	bool get_chn_value(const wchar_t* _beg, const int len, long long int* result);
 	double get_value(const wchar_t* _beg, const int len);
 };
 
